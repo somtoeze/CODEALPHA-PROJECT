@@ -1,16 +1,274 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>CodeAlpha - Azure CI/CD</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeAlpha Task 1 - Eze Somtochukwu</title>
     <style>
-        body { font-family: Arial; text-align: center; padding: 50px; background: #0078D4; color: white; }
-        h1 { font-size: 3rem; }
-        .badge { background: #fff; color: #0078D4; padding: 10px 20px; border-radius: 5px; display: inline-block; }
+        /* ── Reset & base ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            padding: 20px;
+        }
+
+        .card {
+            max-width: 750px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 45px 40px 50px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+        }
+
+        /* ── Profile image ── */
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 30px rgba(255, 210, 0, 0.25);
+            background: #0078D4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ── Badge ── */
+        .badge {
+            display: inline-block;
+            background: linear-gradient(95deg, #0078d4, #00a4ef);
+            padding: 8px 28px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 120, 212, 0.35);
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #f7971e, #ffd200);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+
+        .divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #f7971e, #ffd200);
+            border-radius: 10px;
+            margin: 10px auto 25px;
+        }
+
+        /* ── Info grid ── */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 28px 0 20px;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
+            padding: 16px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: background 0.25s;
+        }
+
+        .info-item:hover {
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        .info-item .label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 4px;
+        }
+
+        .info-item .value {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .info-item .value .highlight {
+            background: linear-gradient(95deg, #f7971e, #ffd200);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ── Tech stack pills ── */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 25px 0 10px;
+        }
+
+        .tech-pill {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .tech-pill.azure {
+            border-color: #0078d4;
+            color: #7ab7f0;
+        }
+        .tech-pill.gh {
+            border-color: #f0f6fc;
+            color: #c9d1d9;
+        }
+        .tech-pill.docker {
+            border-color: #2496ed;
+            color: #7fc4f7;
+        }
+        .tech-pill.terraform {
+            border-color: #7b42bc;
+            color: #b392e0;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 22px;
+        }
+
+        .footer a {
+            color: #f7971e;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 520px) {
+            .card {
+                padding: 30px 18px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>🚀 CodeAlpha Task 1</h1>
-    <div class="badge">CI/CD Pipeline with Azure</div>
-    <p>Deployed by Eze Somtochukwu</p>
+
+    <div class="card">
+
+        <!-- Profile Picture -->
+        <div class="avatar">
+            <img src="c:\Users\hp\Downloads\websitepicture.png=true"
+                 alt="Eze Somtochukwu" />
+        </div>
+
+        <!-- Badge -->
+        <div class="badge">✅ Task 1 Complete</div>
+
+        <!-- Title -->
+        <h1>CodeAlpha Task 1</h1>
+        <p class="subtitle">CI/CD Pipeline with Azure</p>
+        <div class="divider"></div>
+
+        <!-- Info Grid -->
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="label">🛠️ Deployed by</span>
+                <span class="value">Eze Somtochukwu</span>
+            </div>
+            <div class="info-item">
+                <span class="label">☁️ Platform</span>
+                <span class="value"><span class="highlight">Azure Static Web Apps</span></span>
+            </div>
+            <div class="info-item">
+                <span class="label">🔁 CI/CD</span>
+                <span class="value">GitHub Actions</span>
+            </div>
+            <div class="info-item">
+                <span class="label">📦 Container Registry</span>
+                <span class="value">Azure Container Registry</span>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="tech-stack">
+            <span class="tech-pill azure">☁️ Azure</span>
+            <span class="tech-pill gh">🐙 GitHub Actions</span>
+            <span class="tech-pill docker">🐳 Docker</span>
+            <span class="tech-pill terraform">🏗️ Terraform</span>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>
+                🚀 Built with ❤️ by
+                <a href="https://github.com/somtoeze" target="_blank">Eze Somtochukwu</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/somtoeze/CODEALPHA-PROJECT" target="_blank">View on GitHub</a>
+            </p>
+        </div>
+
+    </div>
+
 </body>
 </html>
